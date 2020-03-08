@@ -1,5 +1,6 @@
 package App;
 
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -17,11 +18,7 @@ public class Main {
 		}
 		long end = System.currentTimeMillis();
 		System.out.println();
-		System.out.println("Soddoku exécuté en " + Long.toString(end - start) + " millisecondes");
-		
-		
-		
-		
+		System.out.println("Sudoku rÃ©solu en " + Long.toString(end - start) + " millisecondes");
 	}
 
 }

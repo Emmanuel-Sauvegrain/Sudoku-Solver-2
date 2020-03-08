@@ -1,58 +1,75 @@
 package App;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class Solver {
 
-	private int checkGrid[][];
 	private int gridSize;
 	private Grid grid;
 	
 	public Solver(Grid grid,int gridSize) {
-
-		this.checkGrid = grid.getActualGrid();
 		this.gridSize = gridSize;
 		this.grid = grid;
-		
-		/*
 		try {
-			solveCell(0,0);
+			//solveCell(0,0);
+			solve(this.grid.getActualGrid());
 		}catch( Exception e) {	
 		}
-		*/
-		solverMRV();
+		//solverMRV();
 		//solverDegreeH();
 		
 		
 	}
-	
-	
-	
-	private void solveCell(int row, int col) throws Exception {
 
-		
-		if(row > gridSize-1) {
-			System.out.println("	----- Solution trouv�e ----");
+	private void solve(int[][] grid) throws Exception {
+		if(Grid.isGridFull(grid)){
+			System.out.println();
+			System.out.println("Solution found");
+			throw new Exception();
+		}
+		ArrayList<int[]> emptyCells = Grid.getEmptyCells(grid);
+		if(emptyCells.isEmpty()){
+			return;
+		}
+		//si aucun parametre activé :
+		int[] pos = emptyCells.get(0);
+		ArrayList<Integer> domain = Grid.cellDomain(pos[0], pos[1], grid);
+		for(int i : domain){
+			System.out.println(i);
+		}
+		if(domain.isEmpty()){
+			return;
+		}
+		for(int value : domain){
+			grid[pos[0]][pos[1]] = value;
+			Grid.displayGrid(grid);
+			solve(Grid.deepCopyOfGrid(grid));
+		}
+	}
+	
+	
+	
+	/*private void solveCell(int row, int col) throws Exception {
+		if(row > this.gridSize-1) {
+			System.out.println("	----- Solution trouvée ----");
 			throw new Exception() ;	
 		}
-		
-		
 		// If the cell is not empty
-		if( checkGrid[row][col] != 0){
+		if( this.grid.actualGrid[row][col] != 0){
 			changeCell(row,col);
 			
 		}else {
 			// Find a valid number for the cell
 			   for(int tryNumber=1; tryNumber<10;tryNumber++) {
-				   if( grid.checkRow(row,tryNumber,checkGrid) && grid.checkCol(col,tryNumber,checkGrid) && grid.checkBox(row,col,tryNumber,checkGrid)) {
-					   checkGrid[row][col] = tryNumber;
-					   updateGrid();
-					   changeCell(row,col);
+				   if( grid.checkRow(row,tryNumber) && grid.checkCol(col,tryNumber) && grid.checkBox(row,col,tryNumber)) {
+						this.grid.setActualGrid(row, col, tryNumber);
+						this.grid.displayActualGrid();
+						changeCell(row,col);
 				   }
 			   }
 			   // No valid Number was found
-			   checkGrid[row][col] = 0;
-			   updateGrid();   
+			   //checkGrid[row][col] = 0;
+			   //updateGrid();   
 		   }
 		}
 		
@@ -64,22 +81,9 @@ public class Solver {
 		}else {
 			solveCell(row+1,0);
 		}
-	}
+	}*/
 	
-	private void updateGrid() {
-		for( int row=0; row<gridSize;row++) {
-			for( int col=0; col < gridSize;col++) {
-				if(checkGrid[row][col] != 0) {
-					grid.setActualGrid(row,col,checkGrid[row][col]);
-				}else {
-					grid.setActualGrid(row,col,0); // Check
-				}
-			}
-		}
-		grid.displayActualGrid();
-	}
-	
-	private boolean solverMRV() {
+	/*private boolean solverMRV() {
 		
 		int row = 0;
 		int col = 0;
@@ -170,7 +174,7 @@ private boolean solverDegreeH() {
 			}
 			return list;
 		
-	}
+	}*/
 	
 	
 		

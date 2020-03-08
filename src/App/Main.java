@@ -1,17 +1,14 @@
 package App;
 
-import java.util.ArrayList;
-
-import App.algorithms.*;
 
 public class Main {
 
 	public static void main(String[] args) {
-		Grid grid = new Grid();
+		Sudoku sudoku = new Sudoku();
 		
 		long start = System.currentTimeMillis();
-		Solver solver = new Solver(grid,9, true, true, true, false);
-		boolean result = solver.solve(grid.getActualGrid());
+		Solver solver = new Solver(sudoku,9, true, true, true, true);
+		boolean result = solver.solve();
 		long end = System.currentTimeMillis();
 		if(result){
 			System.out.println();
@@ -21,7 +18,6 @@ public class Main {
 			System.out.println();
 			System.out.println("Resolution failed");
 		}
-
 	}
 
 }

@@ -7,19 +7,19 @@ import java.util.LinkedHashMap;
 import static java.util.stream.Collectors.*;
 import static java.util.Map.Entry.*;
 
-import App.Grid;
+import App.Sudoku;
 
 public class LCV {
 
-    public static ArrayList<Integer> LCV_solve(ArrayList<Integer> domain, int x, int y, int[][] grid){
+    public static ArrayList<Integer> LCV_solve(ArrayList<Integer> domain, int x, int y, Sudoku sudoku){
         ArrayList<Integer> sortedDomain = new ArrayList<Integer>();
         HashMap<Integer,Integer> domainImpact = new HashMap<Integer,Integer>();
         for(int value : domain){
             domainImpact.put(value, 0);
         }
-        ArrayList<int[]> contraints = Grid.getCellConstrains(grid, x, y);
+        ArrayList<int[]> contraints = sudoku.getCellConstraints(x, y);
         for(int[] c : contraints){
-            ArrayList<Integer> cellDomain = Grid.cellDomain(c[0], c[1], grid);
+            ArrayList<Integer> cellDomain = sudoku.cellDomain(c[0], c[1]);
             for(int value : domain){
                 if(cellDomain.contains(value)){
                     domainImpact.put(value, domainImpact.get(value) + 1);

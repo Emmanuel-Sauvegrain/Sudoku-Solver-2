@@ -7,15 +7,15 @@ import java.util.LinkedHashMap;
 import static java.util.stream.Collectors.*;
 import static java.util.Map.Entry.*;
 
-import App.Grid;
+import App.Sudoku;
 
 public class DH {
 
-    public static ArrayList<int[]> DH_solve(ArrayList<int[]> cells, int[][] grid) {
+    public static ArrayList<int[]> DH_solve(ArrayList<int[]> cells, Sudoku sudoku) {
         ArrayList<int[]> sortedCells = new ArrayList<int[]>();
         HashMap<int[], Integer> contraints = new HashMap<int[], Integer>();
         for (int[] c : cells) {
-            contraints.put(c, Grid.getCellConstrains(grid, c[0], c[1]).size());
+            contraints.put(c, sudoku.getCellConstraints(c[0], c[1]).size());
         }
         HashMap<int[], Integer> sortedContraints = contraints
         .entrySet()

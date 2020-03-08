@@ -13,11 +13,11 @@ public class Solver {
 		try {
 			//solveCell(0,0);
 			solve(this.grid.getActualGrid());
+			
 		}catch( Exception e) {	
 		}
 		//solverMRV();
-		//solverDegreeH();
-		
+		//solverDegreeH();	
 		
 	}
 

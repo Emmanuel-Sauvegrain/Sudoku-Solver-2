@@ -16,10 +16,22 @@ public class Solver {
 	public Solver(Grid grid,int gridSize, boolean mrv, boolean dh, boolean lcv, boolean ac3) {
 		this.gridSize = gridSize;
 		this.grid = grid;
+<<<<<<< HEAD
 		this.mrv = mrv;
 		this.dh = dh;
 		this.lcv = lcv;
 		this.ac3 = ac3;
+=======
+		try {
+			//solveCell(0,0);
+			solve(this.grid.getActualGrid());
+			
+		}catch( Exception e) {	
+		}
+		//solverMRV();
+		//solverDegreeH();	
+		
+>>>>>>> 5a8b663... Update Solver.java
 	}
 
 	public boolean solve(int[][] grid){

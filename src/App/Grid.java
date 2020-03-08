@@ -1,7 +1,10 @@
 package App;
 
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 public class Grid {
 
@@ -33,6 +36,30 @@ public class Grid {
 	private int sizeBox = 3;
 
 
+	public void loadGrid(String filename) throws Exception {
+		
+		int i;
+		int j;
+		int number;
+		Scanner file = new Scanner(new FileReader(filename));
+		file.useDelimiter("");
+		
+		List<String> temp = new ArrayList<String>();
+		
+		while(file.hasNextInt()) {
+
+			for(i=0;i<9;i++) {
+				for(j=0;j<9;j++) {
+					number = file.nextInt();
+					actualGrid[i][j] = number;
+				}
+			}
+		}
+		file.close();
+	}
+	
+	
+	
 	public static int[][] deepCopyOfGrid(int[][] grid){
         int[][] newGrid = new int[9][9];
         for (int i = 0; i < 9; i++)

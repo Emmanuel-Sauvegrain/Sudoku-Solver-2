@@ -6,6 +6,35 @@ public class Main {
 	public static void main(String[] args) {
 		Sudoku sudoku = new Sudoku();
 		
+		boolean mrv;
+		boolean dh;
+		boolean lcv;
+		boolean ac3;
+		
+		for(int i=0;i<args.length;i++) {
+			
+			if(args[i].contentEquals("mrv")){
+				mrv=true;
+				System.out.println("MRV");
+			}
+			
+			if(args[i].contentEquals("dh")){
+				dh=true;
+				System.out.println("DH");
+			}
+			
+			if(args[i].contentEquals("lcv")){
+				lcv=true;
+				System.out.println("LCV");
+			}
+		
+			if(args[i].contentEquals("ac3")){
+				ac3=true;
+				System.out.println("AC3");
+			}
+
+		}
+		
 		long start = System.currentTimeMillis();
 		Solver solver = new Solver(sudoku,9, true, true, true, true);
 		boolean result = solver.solve();

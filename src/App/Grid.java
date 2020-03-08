@@ -38,8 +38,7 @@ public class Grid {
         for (int i = 0; i < 9; i++)
             newGrid[i] = Arrays.copyOf(grid[i], 9);
         return newGrid;
-    }
-	
+	}
 	
 	public static boolean checkRow(int row,int number, int[][] grid) {
 		for(int i=0; i<9; i++) {

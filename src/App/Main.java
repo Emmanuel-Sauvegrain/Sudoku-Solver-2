@@ -7,21 +7,20 @@ import App.algorithms.*;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-		
 		Grid grid = new Grid();
-			
 		
 		long start = System.currentTimeMillis();
-		try {
-			Solver solver = new Solver(grid,9, true, true, true, false);
-		}catch( Exception e) {
-			
-		}
+		Solver solver = new Solver(grid,9, true, true, true, false);
+		boolean result = solver.solve(grid.getActualGrid());
 		long end = System.currentTimeMillis();
-		System.out.println();
-		System.out.println("Sudoku résolu en " + Long.toString(end - start) + " millisecondes");
+		if(result){
+			System.out.println();
+			System.out.println("Successful resolution in "+ Long.toString(end - start) + " ms");
+		}
+		else{
+			System.out.println();
+			System.out.println("Resolution failed");
+		}
 
 	}
 

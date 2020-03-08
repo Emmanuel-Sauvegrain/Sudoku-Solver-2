@@ -20,26 +20,16 @@ public class Solver {
 		this.dh = dh;
 		this.lcv = lcv;
 		this.ac3 = ac3;
-		try {
-			//solveCell(0,0);
-			solve(this.grid.getActualGrid());
-		}catch( Exception e) {	
-		}
-		//solverMRV();
-		//solverDegreeH();
-		
-		
 	}
 
-	private void solve(int[][] grid) throws Exception {
+	public boolean solve(int[][] grid){
+		boolean result = false;
 		if(Grid.isGridFull(grid)){
-			System.out.println();
-			System.out.println("Solution found");
-			throw new Exception();
+			return true;
 		}
 		ArrayList<int[]> emptyCells = Grid.getEmptyCells(grid);
 		if(emptyCells.isEmpty()){
-			return;
+			return true;
 		}
 		//si MRv est activé :
 		if(this.mrv){
@@ -51,7 +41,7 @@ public class Solver {
 		int[] pos = emptyCells.get(0);
 		ArrayList<Integer> domain = Grid.cellDomain(pos[0], pos[1], grid);
 		if(domain.isEmpty()){
-			return;
+			return false;
 		}
 		if(this.lcv){
 			domain = LCV.LCV_solve(domain, pos[0], pos[1], grid);
@@ -59,8 +49,12 @@ public class Solver {
 		for(int value : domain){
 			grid[pos[0]][pos[1]] = value;
 			Grid.displayGrid(grid);
-			solve(Grid.deepCopyOfGrid(grid));
+			result = solve(Grid.deepCopyOfGrid(grid));
+			if(result){
+				return result;
+			}
 		}
+		return result;
 	}
 	
 	

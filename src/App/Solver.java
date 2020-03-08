@@ -2,14 +2,24 @@ package App;
 
 import java.util.ArrayList;
 
+import App.algorithms.*;
+
 public class Solver {
 
 	private int gridSize;
 	private Grid grid;
+	private boolean mrv = false;
+	private boolean dh = false;
+	private boolean lcv = false;
+	private boolean ac3 = false;
 	
-	public Solver(Grid grid,int gridSize) {
+	public Solver(Grid grid,int gridSize, boolean mrv, boolean dh, boolean lcv, boolean ac3) {
 		this.gridSize = gridSize;
 		this.grid = grid;
+		this.mrv = mrv;
+		this.dh = dh;
+		this.lcv = lcv;
+		this.ac3 = ac3;
 		try {
 			//solveCell(0,0);
 			solve(this.grid.getActualGrid());
@@ -31,14 +41,20 @@ public class Solver {
 		if(emptyCells.isEmpty()){
 			return;
 		}
-		//si aucun parametre activé :
+		//si MRv est activé :
+		if(this.mrv){
+			emptyCells = MRV.MRV_solve(emptyCells, grid);
+		}
+		if(this.dh){
+			emptyCells = DH.DH_solve(emptyCells, grid);
+		}
 		int[] pos = emptyCells.get(0);
 		ArrayList<Integer> domain = Grid.cellDomain(pos[0], pos[1], grid);
-		for(int i : domain){
-			System.out.println(i);
-		}
 		if(domain.isEmpty()){
 			return;
+		}
+		if(this.lcv){
+			domain = LCV.LCV_solve(domain, pos[0], pos[1], grid);
 		}
 		for(int value : domain){
 			grid[pos[0]][pos[1]] = value;

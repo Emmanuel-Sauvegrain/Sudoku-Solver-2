@@ -4,6 +4,8 @@ package App;
 public class Main {
 
 	public static void main(String[] args) {
+
+		//Initialisation du Sudoku et de sa grille 
 		Sudoku sudoku = new Sudoku();
 		
 		boolean mrv;
@@ -11,6 +13,7 @@ public class Main {
 		boolean lcv;
 		boolean ac3;
 		
+		//Lecture des arguments en ligne de commande
 		for(int i=0;i<args.length;i++) {
 			
 			if(args[i].contentEquals("mrv")){
@@ -34,7 +37,7 @@ public class Main {
 			}
 
 		}
-		
+		//Initialisation et lancement du Solver, selon les arguments donnés, et affichage du résultat
 		long start = System.currentTimeMillis();
 		Solver solver = new Solver(sudoku,9, true, true, true, true);
 		boolean result = solver.solve();

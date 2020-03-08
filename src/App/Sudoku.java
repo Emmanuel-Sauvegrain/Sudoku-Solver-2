@@ -12,6 +12,7 @@ import App.algorithms.Arc;
 
 public class Sudoku {
 
+	//Grilles de Sudoku de base (debug)
 /*
 	// Suddoku simple: 50 millisecondes avec Backtracking seul
 	private int[][] actualGrid = {
@@ -36,8 +37,10 @@ public class Sudoku {
 			{9,0,0, 0,0,5, 0,0,0},
 			{0,7,0, 2,0,0, 0,0,0},
 			{1,0,0, 6,0,0, 4,0,0} };
+	//Ensemble des domaines des cellules vide de la grille
 	public HashMap<String, ArrayList<Integer>> domains;
 
+	//Constructor - initialisation de la Map de domaines
 	public Sudoku(){
 		this.domains = new HashMap<String, ArrayList<Integer>>();
 		ArrayList<int[]> cells = this.getEmptyCells();
@@ -47,6 +50,7 @@ public class Sudoku {
 	}
 
 
+	//Récupération de la grille depuis un fichier texte
 	public void loadGrid(String filename) throws Exception {
 		
 		int i;
@@ -67,7 +71,7 @@ public class Sudoku {
 		file.close();
 	}
 	
-	
+	//Retourne la viabilité de la valeur dans la ligne donnée
 	public boolean checkRow(int row,int number) {
 		for(int i=0; i<9; i++) {
 			if(number == this.grid[row][i]) {
@@ -77,6 +81,7 @@ public class Sudoku {
 		return true;
 	}
 	
+	//Retourne la viabilité de la valeur dans la colonne donnée
 	public boolean checkCol(int col,int number) {
 		for(int i=0; i<9; i++) {
 			if(number == this.grid[i][col]) {
@@ -86,7 +91,7 @@ public class Sudoku {
 		return true;
 	}
 	
-	
+	//Retourne la viabilité de la valeur dans la boite donné (case de 3x3)
 	public boolean checkBox( int row, int col, int number) {
 		row = (row / 3) * 3 ;
 		col = (col / 3) * 3 ;
@@ -105,10 +110,12 @@ public class Sudoku {
 		return this.grid;
 	}
 	
+	//change la valeur d'une cellule de la grille
 	public void setValue(int row,int col,int value) {
 		this.grid[row][col] = value;		
 	}
 	
+	//Si la grille est complète (pas forcement valide)
 	public boolean isGridFull(){
 		for(int i = 0; i<9; i++){
 			for(int j = 0; j<9; j++){
@@ -120,6 +127,7 @@ public class Sudoku {
 		return true;
 	}
 	
+	//Retourne la liste de toutes les cellules sans valeur (qui ont la valeur de base 0)
 	public ArrayList<int[]> getEmptyCells(){
 		ArrayList<int[]> cells = new ArrayList<int[]>();
 		for(int i = 0; i < 9; i++){
@@ -132,6 +140,7 @@ public class Sudoku {
 		return cells;
 	}
 
+	//Retourne le domaine possible d'une cellule
 	public ArrayList<Integer> cellDomain(int x, int y){
 		ArrayList<Integer> domain = new ArrayList<Integer>();
 		for(int i = 1; i < 10; i++){
@@ -144,6 +153,7 @@ public class Sudoku {
 		return domain;
 	}
 
+	//Retourne la liste des cellules avec laquelle une cellule donnée partage un contrainte
 	public ArrayList<int[]> getCellConstraints(int x, int y){
 		ArrayList<int[]> constraints = new ArrayList<int[]>();
 		for(int i = 0; i < 9; i++){
@@ -169,6 +179,7 @@ public class Sudoku {
 		return constraints;
 	}
 
+	//Création de la Queue d'arcs pour AC3
 	public Queue<Arc> getArcs() {
 		Queue<Arc> arcs = new LinkedList<Arc>();
 		ArrayList<int[]> cells = this.getEmptyCells();
@@ -181,6 +192,7 @@ public class Sudoku {
 		return arcs;
 	}
 
+	//Mise a jour de la Map de domaines
 	public void updateDomains(){
 		this.domains.clear();
 		ArrayList<int[]> cells = this.getEmptyCells();
@@ -189,7 +201,7 @@ public class Sudoku {
 		}
 	}
 	
-	
+	//Affichage du Sudoku en console
 	public void displayGrid() {
 		System.out.print("-----------------------------------------");
 		for (int i = 0; i < 9; i++) {

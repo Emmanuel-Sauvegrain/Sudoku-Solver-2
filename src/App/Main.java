@@ -63,6 +63,8 @@ public class Main {
 			System.out.println();
 			System.out.println("Resolution failed");
 		}
+		//Generator generator = new Generator();
+		//sudoku.changeGrid(generator.generateGrid());
 	}
 
 }

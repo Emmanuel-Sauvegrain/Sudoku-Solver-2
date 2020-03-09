@@ -8,10 +8,11 @@ public class Main {
 		//Initialisation du Sudoku et de sa grille 
 		Sudoku sudoku = new Sudoku();
 		
-		boolean mrv;
-		boolean dh;
-		boolean lcv;
-		boolean ac3;
+		boolean mrv = false;
+		boolean dh = false;
+		boolean lcv = false;
+		boolean ac3 = false;
+		boolean changed = false;
 		
 		//Lecture des arguments en ligne de commande
 		for(int i=0;i<args.length;i++) {
@@ -35,11 +36,23 @@ public class Main {
 				ac3=true;
 				System.out.println("AC3");
 			}
-
+			
+			if(args[i].indexOf("load")==0 && !changed) {
+			
+				String[] arrTemp = args[i].split("=",2);
+				System.out.println(arrTemp[1]);
+				try {
+					sudoku.loadGrid(arrTemp[1]);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				changed = true;	
+			}
 		}
 		//Initialisation et lancement du Solver, selon les arguments donnés, et affichage du résultat
 		long start = System.currentTimeMillis();
-		Solver solver = new Solver(sudoku,9, true, true, true, true);
+		Solver solver = new Solver(sudoku,9, mrv, dh, lcv, ac3);
 		boolean result = solver.solve();
 		long end = System.currentTimeMillis();
 		if(result){

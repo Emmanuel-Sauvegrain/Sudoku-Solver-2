@@ -114,6 +114,10 @@ public class Sudoku {
 	public void setValue(int row,int col,int value) {
 		this.grid[row][col] = value;		
 	}
+
+	public void changeGrid(int[][] newGrid){
+		this.grid = newGrid;
+	}
 	
 	//Si la grille est complète (pas forcement valide)
 	public boolean isGridFull(){

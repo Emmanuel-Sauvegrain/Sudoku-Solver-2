@@ -69,17 +69,20 @@ public class Solver {
 				//remise de la variable à 0 si on a besoin de revenir en arrière
 				this.sudoku.setValue(pos[0], pos[1], 0);
 			}
-			//Si AC3 activé : 
-			if(this.ac3 && AC3.AC3_solve(this.sudoku)){
-				this.sudoku.setValue(pos[0], pos[1], 0);
-			}
 			else{
-				result = solve();
-				if(result){
-					return result;
+				//Si AC3 activé : 
+				if(this.ac3 && AC3.AC3_solve(this.sudoku)){
+					this.sudoku.setValue(pos[0], pos[1], 0);
 				}
-				this.sudoku.setValue(pos[0], pos[1], 0);
+				else{
+					result = solve();
+					if(result){
+						return result;
+					}
+					this.sudoku.setValue(pos[0], pos[1], 0);
+				}
 			}
+			
 		}
 		return result;
 	}		
